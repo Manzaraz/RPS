@@ -26,12 +26,15 @@ class ViewController: UIViewController {
     }
 
     @IBAction func rockChoosen(_ sender: Any) {
+        play(userSign: .rock)
     }
     
     @IBAction func paperChoosen(_ sender: Any) {
+        play(userSign: .paper)
     }
     
     @IBAction func scissorsChoosen(_ sender: Any) {
+        play(userSign: .scissors)
     }
     
     @IBAction func playAgainChoosen(_ sender: Any) {
@@ -62,6 +65,33 @@ class ViewController: UIViewController {
         case .draw:
             view.backgroundColor = UIColor(red: 0.663, green: 0.663, blue: 0.663, alpha: 1)
         }
+    }
+    func play(userSign: Sign) {
+        let computerSigh = randomSign()
+        
+        let gameState = userSign.gameState(against: computerSigh)
+        updateUI(forState: gameState)
+        
+        signLabel.text = computerSigh.emoji
+        
+        rockButton.isHidden = true
+        paperButton.isHidden = true
+        scissorsButton.isHidden = true
+        
+        rockButton.isEnabled = false
+        paperButton.isEnabled = false
+        scissorsButton.isEnabled = false
+        
+        switch userSign {
+        case .rock:
+            rockButton.isHidden = false
+        case .paper:
+            paperButton.isHidden = false
+        case .scissors:
+            scissorsButton.isHidden = false
+        }
+        
+        playAgainButton.isHidden = false
     }
     
 }
